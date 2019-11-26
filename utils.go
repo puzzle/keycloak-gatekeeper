@@ -117,7 +117,7 @@ func createCertificate(key *rsa.PrivateKey, hostnames []string, expire time.Dura
 func getRequestHostURL(r *http.Request) string {
 	hostname := r.Host
 	if r.Header.Get("X-Forwarded-Host") != "" {
-		hostname = r.Header.Get("X-Forwarded-Host")
+		hostname = strings.TrimSpace(strings.Split(r.Header.Get("X-Forwarded-Host"), ",")[0])
 	}
 
 	scheme := "http"
